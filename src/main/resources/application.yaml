@@ -1,0 +1,25 @@
+debug: true
+spring:
+  sql:
+    init:
+      platform: postgresql
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    url: jdbc:postgresql://localhost:5432/booksdb
+    username: svetlana
+    password: books
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR

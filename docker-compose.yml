@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: 'postgres:15'
+    container_name: 'books-postgres'
+    environment:
+      - POSTGRES_USER=svetlana
+      - POSTGRES_PASSWORD=books
+      - POSTGRES_DB=booksdb
+    volumes:
+      - ./data/pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgAdminBooks
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
