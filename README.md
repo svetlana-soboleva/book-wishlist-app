@@ -34,7 +34,7 @@ Make sure you have **Java JDK 11+**, **Docker**, and **Maven** installed on your
     - Create a file named `application.properties` and add the following configuration:
 
    ```properties
-   google.books.api.key=YOUR_GOOGLE_BOOKS_API_KEY
+
    2. **Create the `application.yaml` file**:
       ```bash
       debug: true
@@ -82,7 +82,7 @@ Make sure you have **Java JDK 11+**, **Docker**, and **Maven** installed on your
        restart: always
    
 
-3. Add your Google Books API key 
+3. Add your Google Books API key to .env in the root of the project
 
 ## 📚 API Endpoints
 
