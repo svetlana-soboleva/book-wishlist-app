@@ -4,6 +4,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Ignore Maven Wrapper
+.mvn/wrapper/
+
+# Ignore PostgreSQL data directory
+data/pgdata/
+
 # Ignore .env files
 .env
 
