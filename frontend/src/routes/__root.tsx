@@ -7,7 +7,6 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
-
 export const Route = createRootRoute({
   component: MainRouteComponent,
 });
@@ -16,21 +15,26 @@ function MainRouteComponent() {
   const navigate = useNavigate();
 
   return (
-    <div className="m-2">
+    <div className="m-8">
       <div className="navbar bg-neutral text-neutral-content justify-between rounded-xl items my-4">
-        <Link to="/" className="btn btn-ghost text-xl">
-         <img src="../../public/reading-book.png" alt="Reading Book Logo" className="w-12 h-12" />
-        </Link>
-
-
-        <SignedIn>
-          <Link
-            to="/about"
-            className="btn btn-ghost text-xl [&.active]:text-amber-300"
-          >
-            Wish List
+        <div className="flex flex-row">
+          {" "}
+          <Link search={{ query: "" }} to="/" className="btn btn-ghost text-xl">
+            <img
+              src="../../public/reading-book.png"
+              alt="Reading Book Logo"
+              className="w-12 h-12"
+            />
           </Link>
-        </SignedIn>
+          <SignedIn>
+            <Link
+              to="/myBooks"
+              className="btn btn-ghost text-xl [&.active]:text-amber-300"
+            >
+              My Books
+            </Link>
+          </SignedIn>
+        </div>
 
         <SignedOut>
           <Link
