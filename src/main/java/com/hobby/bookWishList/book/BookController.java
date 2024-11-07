@@ -15,8 +15,8 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/{id}/search-books")
-    public ResponseEntity<List<GoogleBookItem>> searchBooks(@PathVariable String id, @RequestParam String q,
+    @GetMapping("/search-books")
+    public ResponseEntity<List<GoogleBookItem>> searchBooks( @RequestParam String q,
                                                             @RequestParam(defaultValue = "0") int startIndex,
                                                             @RequestParam(defaultValue = "10") int maxResults) {
         GoogleBooksResponse response = bookService.searchBooks(q, startIndex, maxResults);
@@ -28,5 +28,12 @@ public class BookController {
     public ResponseEntity<Book> likeBook(@PathVariable Long userId, @PathVariable String bookId) {
         Book likedBook = bookService.addBookToWishlist(userId, bookId);
         return ResponseEntity.ok(likedBook);
+    }
+
+    @GetMapping("/books/searchNewestBooks")
+    public GoogleBooksResponse searchBooks(
+            @RequestParam int page,
+            @RequestParam(defaultValue = "10") int maxResults) {
+        return bookService.searchNewestBooks( page, maxResults);
     }
 }
