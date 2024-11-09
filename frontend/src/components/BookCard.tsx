@@ -4,6 +4,7 @@ import { Book } from "../api/types";
 import { Link } from "@tanstack/react-router";
 
 export const BookCard = ({ book, to, params}: { book: Book, to: string, params: { bookId: string} }) => {
+
   const { selfLink, volumeInfo } = book;
   const { title, authors, pageCount, imageLinks } = volumeInfo;
 

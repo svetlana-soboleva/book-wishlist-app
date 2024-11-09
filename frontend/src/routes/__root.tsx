@@ -15,7 +15,7 @@ function MainRouteComponent() {
   const navigate = useNavigate();
 
   return (
-    <div className="m-4">
+    <div className="m-4 mb-8">
       <div className="navbar bg-neutral text-neutral-content justify-between rounded-xl items my-4">
         <div className="flex flex-row">
           {" "}

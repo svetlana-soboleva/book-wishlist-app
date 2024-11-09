@@ -42,7 +42,6 @@ export const getBookInfo = async (id: string) => {
       throw new Error(`Error: ${res.status} ${res.statusText}`);
     }
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching books:", error);
