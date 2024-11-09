@@ -25,7 +25,7 @@ public class BookController {
         return ResponseEntity.ok().body(books);
     }
 
-    @PostMapping("/{userId}/like-book/{bookId}")
+    @PostMapping("/secure/{userId}/like-book/{bookId}")
     public ResponseEntity<Book> likeBook(@PathVariable Long userId, @PathVariable String bookId) {
         Book likedBook = bookService.addBookToWishlist(userId, bookId);
         return ResponseEntity.ok(likedBook);

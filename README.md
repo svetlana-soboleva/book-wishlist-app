@@ -1,132 +1,38 @@
-# 📚 Book Wishlist API
+### Tech stack
 
-Welcome to the Book Wishlist API project! This is a simple application built using **Spring Boot** that allows users to search for books using the **Google Books API** and maintain a wishlist of their favorite books. This project is designed for learning purposes and will eventually be expanded with a **React** frontend.
+Required tech stack:
 
-## 🚀 Features
+- Java 17+
+- Spring Boot 3.2+
+- Spring Data JPA
+- Postgres in a Docker container
+- TypeScript
+- React 18+ (with functional components)
 
-- Search for books using keywords.
-- Save books to a user's wishlist.
-- Each user can maintain their own list of liked books.
-- Interaction with the Google Books API to fetch book details.
+Everything else is up to you to choose. I recommend Vite for building the frontend project, TanStack Query for handling queries, TanStack Router if you want routing in your SPA, Tailwind, other component libraries for easier styling and reusable components, Maven, Spring Validation, and so on and on.
 
-## 🛠️ Technologies Used
+### Minimum requirements
 
-- **Backend**: Spring Boot
-- **Database**: PostgreSQL
-- **Containerization**: Docker
-- **API**: Google Books API
-- **Data Access**: Spring Data JPA
-- **Dependency Management**: Maven
+The bare minimum is a frontend (that doesn't look and feel scary), a web api that serves requests, and a database for storing the data.
 
-## 🖥️ Setup Instructions
+Your app needs to have _some_ functionality of _some_ use to _someone_. At the very least, you need some CRUD functionality (as opposed to just displaying something, or just entering something with no purpose).
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/book-wishlist-api.git
-   cd book-wishlist-api
+Feel completely free to use external APIs for cool things.
 
-### 2. Configure Your Environment
+### Setup and planning
 
-Make sure you have **Java JDK 11+**, **Docker**, and **Maven** installed on your machine.
+Use your own _public_ repository on _your_ GitHub account.
 
-1. **Create the `application.properties` file**:
-    - Navigate to `src/main/resources`.
-    - Create a file named `application.properties` and add the following configuration:
+**DO NOT** start (or, rather, continue) before you have a clear plan of what you're going to do, and a conservative estimate of how long that will take you. Then multiply it by 4, and that is the minimum time it will take you. If it's more than 15 hours, review your plan.
 
-   ```properties
+Always have an MVP in mind that represents the minimum set of features your app needs - something you can always fall back to, if you can't implement a desired fantasy feature. Don't start work on extra stuff until you're sure your basic stuff is stable.
 
-   2. **Create the `application.yaml` file**:
-      ```bash
-      debug: true
-      spring:
-        sql:
-          init:
-            platform: postgresql
-        output:
-          ansi:
-            enabled: always
-        datasource:
-          url: jdbc:postgresql://localhost:5432/DBNAME
-          username: USERNAME
-          password: PASSWORD
-          hikari:
-            connectionTimeout: 20000
-            maximumPoolSize: 5
-        jpa:
-          defer-datasource-initialization: true
-          hibernate:
-            ddl-auto: create-drop
-      logging:
-        level:
-          org:
-            springframework:
-              boot:
-                autoconfigure: ERROR
-          
-2. **Create the `docker-compose.yml`**:
-   ```bash
-   version: '3.8'
-   
-   services:
-     postgres:
-       image: 'postgres:15'
-       container_name: 'books-postgres'
-       environment:
-         - POSTGRES_USER=USERNAME
-         - POSTGRES_PASSWORD=PASSWORD
-         - POSTGRES_DB=DATABASE
-       volumes:
-         - ./data/pgdata:/var/lib/postgresql/data
-       ports:
-         - 5432:5432
-       restart: always
-   
+Create a readme where you lay out your plan for your project. At the end, add some instructions on how to build and run the whole app to the readme.
 
-3. Add your Google Books API key to .env in the root of the project
+Create a project in GitHub projects where you make a plan and track your progress. Create cards that represent your steps.
 
-## 📚 API Endpoints
+There should be a high level big-picture sketch of your whole setup (preferably created **before** you're too deep into coding), as well as view mockups for the frontend. You can use any sketching tool (Excalidraw is one). Put the sketches in the project root.
 
-### User Endpoints
+There are also online tools for sketching database schemas. They're helpful. Try them. If you sketch your schema, also include that file in the project.
 
-#### 1. **Create User**
-
-- **Endpoint:** `POST /api/users/register`
-- **Description:** Registers a new user.
-- **Request Body:**
-  ```json
-  {
-    "username": "string",
-    "password": "string"
-  }
-
-### Get User Details
-
-- **Endpoint:** `GET /api/users/{userId}`
-- **Description:** Retrieves details for a specific user.
-
-#### Path Parameters:
-- `userId`: The ID of the user whose details are to be retrieved. This should be a valid user ID present in the database.    
-
-## Book Endpoints
-
-### 1. Search Books
-- **Endpoint:** `GET /api/1/search-books?q=harry+potter&startIndex=0&maxResults=5`
-- **Description:** Searches for books using the Google Books API.
-
-### 2. Like a Book
-- **Endpoint:** `POST /api/{userId}/like-book/{bookId}`
-- **Description:** Adds a book to the user's liked books list.
-
-#### Path Parameters:
-- **`userId`**: The ID of the user who is liking the book.
-- **`bookId`**: The unique ID of the book (from Google Books).
-
-#### Response:
-- **201 Created**:
-   - **Description:** The book was successfully added to the user's liked books list.
-   - **Example Response Body:**
-     ```json
-     {
-       "message": "Book successfully added to liked list."
-     }
-     ```
+Be mindful of clean coding, naming standards and conventions, formatting, code organization, layering, and so on.

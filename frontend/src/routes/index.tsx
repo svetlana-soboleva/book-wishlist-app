@@ -1,10 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Search } from "../components/Search";
+import { Search } from "@/components/Search";
 import { useQuery } from "@tanstack/react-query";
-import { getBooks } from "../api";
+import { getBooks } from "@/api";
 import { useState } from "react";
-import { BookCard } from "../components/BookCard";
-import { Book } from "../api/types";
+import { BookCard } from "@/components/book/BookCard";
+import { Book } from "@/api/types";
 
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>) => {
