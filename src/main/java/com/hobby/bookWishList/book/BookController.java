@@ -39,8 +39,8 @@ public class BookController {
         if(existingUser == null){
             existingUser = userService.createUser(userDTO);
         }
-        //if no user create new user by ca;;ing userService.createUser(userDTO)
-    //how to do it
+        //if no user create new user by calling userService.createUser(userDTO)
+
         //otherwise
         Book book = bookService.findBookInBD(bookId);
         if(book ==null){

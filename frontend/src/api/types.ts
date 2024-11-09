@@ -22,3 +22,8 @@ export interface ResponseData {
   totalItems: number;
   items: Book[];
 }
+
+export interface User {
+  username: string;
+  email: string;
+}

@@ -1,7 +1,7 @@
-import { FaHeart } from "react-icons/fa";
 import icon from "@/assets/onImgPlaceholder.png";
 import { Book } from "@/api/types";
 import { Link } from "@tanstack/react-router";
+import { LikeBtn } from "../buttons/LikeBtn";
 
 export const BookCard = ({
   book,
@@ -33,9 +33,7 @@ export const BookCard = ({
         </p>
 
         <div className="flex items-center justify-between mt-1">
-          <button className="flex items-center text-gray-500 text-xs hover:text-red-500 hover:cursor-pointer">
-            <FaHeart />
-          </button>
+          <LikeBtn  size={10}/>
           <div className="flex items-center space-x-1 text-gray-600">
             {pageCount && (
               <p className="text-xs text-gray-700">{pageCount} pages</p>
