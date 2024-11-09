@@ -2,11 +2,16 @@ package com.hobby.bookWishList.book;
 import com.hobby.bookWishList.book.model.Book;
 import com.hobby.bookWishList.book.model.GoogleBookItem;
 import com.hobby.bookWishList.book.model.GoogleBooksResponse;
+import com.hobby.bookWishList.user.User;
+import com.hobby.bookWishList.user.UserDTO;
+import com.hobby.bookWishList.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -15,6 +20,8 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/search-books")
     public ResponseEntity<List<GoogleBookItem>> searchBooks( @RequestParam String q,
@@ -25,10 +32,24 @@ public class BookController {
         return ResponseEntity.ok().body(books);
     }
 
-    @PostMapping("/secure/{userId}/like-book/{bookId}")
-    public ResponseEntity<Book> likeBook(@PathVariable Long userId, @PathVariable String bookId) {
-        Book likedBook = bookService.addBookToWishlist(userId, bookId);
-        return ResponseEntity.ok(likedBook);
+    @PostMapping("/secure/like-book/{bookId}")
+    public ResponseEntity<Book> likeBook(@RequestBody UserDTO userDTO, @PathVariable String bookId) {
+        User existingUser = userService.findUserByEmail(userDTO.email());
+
+        if(existingUser == null){
+            existingUser = userService.createUser(userDTO);
+        }
+        //if no user create new user by ca;;ing userService.createUser(userDTO)
+    //how to do it
+        //otherwise
+        Book book = bookService.findBookInBD(bookId);
+        if(book ==null){
+            book = new Book(bookId);
+            bookService.saveBook(book);
+        }
+        existingUser.toggleWishList(book);
+        userService.save(existingUser);
+        return ResponseEntity.ok(book);
     }
 
  /*   @GetMapping("/books/searchNewestBooks")

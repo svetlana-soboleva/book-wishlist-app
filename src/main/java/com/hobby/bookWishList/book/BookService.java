@@ -35,19 +35,27 @@ public class BookService {
         return restTemplate.getForObject(url, GoogleBooksResponse.class);
     }
 
-    public Book addBookToWishlist(Long userId, String bookId){
-        User foundUser = userRepo.findById(userId).orElseThrow();
-        Book book = bookRepository.findByBookId(bookId);
-
-        if (book == null) {
-            book = new Book(bookId);
-            bookRepository.save(book);
-        }
-        foundUser.getLikedBooks().add(book);
-        userRepo.save(foundUser);
-        return book;
-
+    public Book findBookInBD(String bookId){
+        return bookRepository.findByBookId(bookId);
     }
+
+    public Book saveBook(Book book){
+        return bookRepository.save(book);
+    }
+
+//    public Book addBookToWishlist(Long userId, String bookId){
+//        User foundUser = userRepo.findById(userId).orElseThrow();
+//        Book book = bookRepository.findByBookId(bookId);
+//
+//        if (book == null) {
+//            book = new Book(bookId);
+//            bookRepository.save(book);
+//        }
+//        foundUser.getLikedBooks().add(book);
+//        userRepo.save(foundUser);
+//        return book;
+//
+//    }
 
 //    public GoogleBooksResponse searchNewestBooks(int page, int maxResults) {
 //        int startIndex = (page - 1) * maxResults;

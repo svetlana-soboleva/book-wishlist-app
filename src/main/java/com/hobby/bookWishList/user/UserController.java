@@ -23,7 +23,6 @@ public class UserController {
         return ResponseEntity.ok().body(createdUser);
     }
 
-
     //need to use authentication, include web token in header
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {

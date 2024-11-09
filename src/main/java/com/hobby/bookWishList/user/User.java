@@ -20,7 +20,7 @@ public class User {
     private String username;
 
     @Column(nullable = false)
-    private String password;
+    private String email;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -33,10 +33,19 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, List<Book> likedBooks) {
+    public User(Long id, String username, String email, List<Book> likedBooks) {
         this.id = id;
         this.username = username;
-        this.password = password;
+        this.email = email;
         this.likedBooks = likedBooks;
+    }
+
+    public void toggleWishList(Book book) {
+        if (likedBooks.contains(book)) {
+            likedBooks.remove(book);
+        } else {
+            likedBooks.add(book);
+        }
+
     }
 }

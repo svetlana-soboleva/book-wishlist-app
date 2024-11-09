@@ -21,7 +21,7 @@ function MainRouteComponent() {
           {" "}
           <Link search={{ query: "" }} to="/" className="btn btn-ghost text-xl">
             <img
-              src="../../public/reading-book.png"
+              src="@/../public/reading-book.png"
               alt="Reading Book Logo"
               className="w-12 h-12"
             />
