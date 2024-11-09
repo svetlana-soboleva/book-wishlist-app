@@ -17,7 +17,8 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
+  const { query } = Route.useSearch();
+  const [searchQuery, setSearchQuery] = useState(query);
   const [page, setPage] = useState(0);
 
   const { isError, error, data, isFetching } = useQuery<Book[]>({
@@ -34,14 +35,15 @@ function Index() {
   };
 
   return (
-    <div className="p-2 flex flex-col gap-4 justify-center items-center">
-      <Search onSearchChange={onSearchChange} />
+    <div className="p-2 flex flex-col gap-16 justify-center items-center">
+      <Search onSearchChange={onSearchChange}/>
       <div>
         {isError ? (
           <div>Error: {error.message}</div>
         ) : (
-          <div className="grid grid-cols-2 gap-2">
-            {data?.map((book) => <BookCard key={book.id} book={book} />)}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+            {data?.map((book) => <BookCard key={book.id} book={book} to="/$bookId" params={{ bookId: book.id }}/>)
+            }
           </div>
         )}
       </div>
@@ -54,7 +56,7 @@ function Index() {
           >
             Previous page
           </button>
-          <button className="join-item btn btn-disabled">{page}</button>
+          <button className="join-item btn btn-disabled">{page +1}</button>
           <button
             onClick={() => setPage((old) => old + 1)}
             className="join-item btn"

@@ -1,6 +1,7 @@
 package com.hobby.bookWishList.book;
 
 import com.hobby.bookWishList.book.model.Book;
+import com.hobby.bookWishList.book.model.GoogleBookItem;
 import com.hobby.bookWishList.book.model.GoogleBooksResponse;
 import com.hobby.bookWishList.user.User;
 import com.hobby.bookWishList.user.UserRepository;
@@ -26,10 +27,10 @@ public class BookService {
         this.restTemplate = new RestTemplate();
     }
 
-    private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+    private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
     public GoogleBooksResponse searchBooks(String query, int startIndex, int maxResults) {
-        String url = String.format("%s%s&key=%s&startIndex=%d&maxResults=%d", BASE_URL, query, apiKey, startIndex, maxResults);
+        String url = String.format("%s?q=%s&key=%s&startIndex=%d&maxResults=%d", BASE_URL, query, apiKey, startIndex, maxResults);
 //        RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, GoogleBooksResponse.class);
     }
@@ -48,14 +49,23 @@ public class BookService {
 
     }
 
-    public GoogleBooksResponse searchNewestBooks(int page, int maxResults) {
-        int startIndex = (page - 1) * maxResults;
+//    public GoogleBooksResponse searchNewestBooks(int page, int maxResults) {
+//        int startIndex = (page - 1) * maxResults;
+//        String url = String.format(
+//                "%s?q=harry&orderBy=newest&maxResults=%d&startIndex=%d&key=%s",
+//                BASE_URL, maxResults, startIndex, apiKey
+//        );
+//
+//        return restTemplate.getForObject(url, GoogleBooksResponse.class);
+//    }
+
+    public GoogleBookItem searchBookInfo(String id){
         String url = String.format(
-                "%sharry&orderBy=newest&maxResults=%d&startIndex=%d&key=%s",
-                BASE_URL, maxResults, startIndex, apiKey
+                "%s/%s",
+                BASE_URL, id
         );
 
-        return restTemplate.getForObject(url, GoogleBooksResponse.class);
+        return restTemplate.getForObject(url, GoogleBookItem.class);
     }
 }
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookController {
 
     @Autowired
@@ -30,10 +31,16 @@ public class BookController {
         return ResponseEntity.ok(likedBook);
     }
 
-    @GetMapping("/books/searchNewestBooks")
+ /*   @GetMapping("/books/searchNewestBooks")
     public GoogleBooksResponse searchBooks(
             @RequestParam int page,
             @RequestParam(defaultValue = "10") int maxResults) {
         return bookService.searchNewestBooks( page, maxResults);
+    }*/
+
+    @GetMapping("/bookInfo/{id}")
+    public ResponseEntity<GoogleBookItem> searchBookInfo(@PathVariable String id) {
+        GoogleBookItem response = bookService.searchBookInfo(id);
+        return ResponseEntity.ok().body(response);
     }
 }

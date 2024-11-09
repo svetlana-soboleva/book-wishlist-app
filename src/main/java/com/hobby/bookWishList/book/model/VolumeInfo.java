@@ -17,11 +17,14 @@ public class VolumeInfo {
 
     private int pageCount;
     private String publishedDate;
+    private String description;
+    private String language;
 
 
     @Getter
     @Setter
     public static class ImageLinks {
         private String smallThumbnail;
+        private String large;
     }
 }

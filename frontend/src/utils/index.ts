@@ -8,3 +8,9 @@ export const formatDate = (dateString?: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString(undefined, options);
   };
+
+  export const filterString = (str : string) => {
+
+   return str.replace(/<\/?[^>]+(>|$)/g, "").trim(); 
+
+  }

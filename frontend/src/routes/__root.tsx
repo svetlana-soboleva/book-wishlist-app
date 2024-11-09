@@ -15,7 +15,7 @@ function MainRouteComponent() {
   const navigate = useNavigate();
 
   return (
-    <div className="m-8">
+    <div className="m-4">
       <div className="navbar bg-neutral text-neutral-content justify-between rounded-xl items my-4">
         <div className="flex flex-row">
           {" "}
@@ -31,7 +31,7 @@ function MainRouteComponent() {
               to="/myBooks"
               className="btn btn-ghost text-xl [&.active]:text-amber-300"
             >
-              My Books
+              My books
             </Link>
           </SignedIn>
         </div>
