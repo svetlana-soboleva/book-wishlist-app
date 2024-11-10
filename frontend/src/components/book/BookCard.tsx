@@ -18,7 +18,7 @@ export const BookCard = ({
   const thumbnail = imageLinks?.smallThumbnail || icon;
 
   const { user } = useUser();
-  const username = user?.firstName
+  const username = user?.firstName;
   const email = user?.emailAddresses?.[0]?.emailAddress;
 
   return (
@@ -37,7 +37,14 @@ export const BookCard = ({
         </p>
 
         <div className="flex items-center justify-between mt-1">
-          <LikeBtn  size={10} user={{email, username}}  bookId={book.id}/>
+          <LikeBtn
+            size={10}
+            user={{
+              email: email as string,
+              username: username as string,
+            }}
+            bookId={book.id}
+          />
           <div className="flex items-center space-x-1 text-gray-600">
             {pageCount && (
               <p className="text-xs text-gray-700">{pageCount} pages</p>

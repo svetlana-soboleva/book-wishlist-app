@@ -5,7 +5,6 @@ import { getBooks } from "@/api";
 import { useState } from "react";
 import { BookCard } from "@/components/book/BookCard";
 import { Book } from "@/api/types";
-import { useUser } from '@clerk/clerk-react'
 
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>) => {
@@ -17,8 +16,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const {user} = useUser()
-  console.log(user?.emailAddresses)
   const navigate = useNavigate();
   const { query } = Route.useSearch();
   const [searchQuery, setSearchQuery] = useState(query);

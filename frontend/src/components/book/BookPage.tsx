@@ -6,9 +6,8 @@ import { useUser } from "@clerk/clerk-react";
 
 export const BookPage = ({ bookData }: { bookData: Book }) => {
   const { user } = useUser();
-  const username = user?.firstName
+  const username = user?.firstName;
   const email = user?.emailAddresses?.[0]?.emailAddress;
- 
 
   return (
     <div className="grid grid-cols-1 pt-4 sm:grid-cols-2 sm:w-full bg-gradient-to-b from-white via-stone-50 to-stone-100 text-white rounded-lg mx-auto shadow-lg">
@@ -26,7 +25,14 @@ export const BookPage = ({ bookData }: { bookData: Book }) => {
           </button>
 
           <h1>Book details</h1>
-          <LikeBtn size={30} user={{email, username}}  bookId={bookData.id} />
+          <LikeBtn
+            size={30}
+            user={{
+              email: email as string,
+              username: username as string,
+            }}
+            bookId={bookData.id}
+          />
         </div>
 
         <div className="flex justify-center items-center p-8">

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class BookService {
 
@@ -42,34 +44,16 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-//    public Book addBookToWishlist(Long userId, String bookId){
-//        User foundUser = userRepo.findById(userId).orElseThrow();
-//        Book book = bookRepository.findByBookId(bookId);
-//
-//        if (book == null) {
-//            book = new Book(bookId);
-//            bookRepository.save(book);
-//        }
-//        foundUser.getLikedBooks().add(book);
-//        userRepo.save(foundUser);
-//        return book;
-//
-//    }
-
-//    public GoogleBooksResponse searchNewestBooks(int page, int maxResults) {
-//        int startIndex = (page - 1) * maxResults;
-//        String url = String.format(
-//                "%s?q=harry&orderBy=newest&maxResults=%d&startIndex=%d&key=%s",
-//                BASE_URL, maxResults, startIndex, apiKey
-//        );
-//
-//        return restTemplate.getForObject(url, GoogleBooksResponse.class);
-//    }
-
     public GoogleBookItem searchBookInfo(String id) {
         String url = String.format("%s/%s", BASE_URL, id);
 
         return restTemplate.getForObject(url, GoogleBookItem.class);
+    }
+
+    public List<Book> getLikedBooksByUserEmail(String email) {
+        User user = userRepo.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+
+        return user.getLikedBooks();
     }
 }
 

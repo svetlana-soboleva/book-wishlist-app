@@ -1,5 +1,5 @@
 package com.hobby.bookWishList.user;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hobby.bookWishList.book.model.Book;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,6 +25,7 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_books", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
+    @JsonManagedReference
     private List<Book> likedBooks = new ArrayList<>();
 
     public User() {

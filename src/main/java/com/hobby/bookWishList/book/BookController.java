@@ -1,6 +1,7 @@
 package com.hobby.bookWishList.book;
 
 import com.hobby.bookWishList.book.model.Book;
+import com.hobby.bookWishList.book.model.BookDTO;
 import com.hobby.bookWishList.book.model.GoogleBookItem;
 import com.hobby.bookWishList.book.model.GoogleBooksResponse;
 import com.hobby.bookWishList.user.User;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -55,16 +57,17 @@ public class BookController {
         }
     }
 
- /*   @GetMapping("/books/searchNewestBooks")
-    public GoogleBooksResponse searchBooks(
-            @RequestParam int page,
-            @RequestParam(defaultValue = "10") int maxResults) {
-        return bookService.searchNewestBooks( page, maxResults);
-    }*/
-
     @GetMapping("/bookInfo/{id}")
     public ResponseEntity<GoogleBookItem> searchBookInfo(@PathVariable String id) {
         GoogleBookItem response = bookService.searchBookInfo(id);
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/liked")
+    public List<BookDTO> getLikedBooksByUserEmail(@RequestParam String email) {
+        List<Book> books = bookService.getLikedBooksByUserEmail(email);
+        return books.stream()
+                .map(book -> new BookDTO(book.getBookId()))
+                .collect(Collectors.toList());
     }
 }

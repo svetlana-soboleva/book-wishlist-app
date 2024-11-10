@@ -3,6 +3,7 @@ import { User } from "./types";
 const BASE_SEARCH_URL = import.meta.env.VITE_BASE_SEARCH_URL;
 const BASE_SEARCH_INFO = import.meta.env.VITE_BASE_SEARCH_INFO;
 const BASE_ADD_WISHLIST = import.meta.env.VITE_BASE_ADD_WISHLIST;
+const BASE_GET_LIKED_BOOKS = import.meta.env.VITE_BASE_GET_LIKED_BOOKS;
 
 export const getBooks = async (
   query: string,
@@ -57,6 +58,7 @@ export const toggleWishList = async (
   bookId: string,
   token: Promise<string | null>
 ) => {
+  console.log(await token);
   const res = await fetch(`${BASE_ADD_WISHLIST}/${bookId}`, {
     method: "POST",
     headers: {
@@ -68,4 +70,17 @@ export const toggleWishList = async (
   });
   console.log(await res.json());
   return res.json();
+};
+
+export const fetchLikedBooks = async (email: string | undefined) => {
+  try {
+    const response = await fetch(`${BASE_GET_LIKED_BOOKS}${email}`);
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
 };

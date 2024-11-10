@@ -1,5 +1,7 @@
 package com.hobby.bookWishList.user;
 
+import com.hobby.bookWishList.book.BookRepository;
+import com.hobby.bookWishList.book.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,7 +11,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepo;
-
+    @Autowired
+    private BookRepository bookRepo;
 
     public User createUser(UserDTO userDTO) {
         User user = new User();
@@ -34,4 +37,5 @@ public class UserService {
     public List<User> findAll() {
         return userRepo.findAll();
     }
+
 }
