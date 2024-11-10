@@ -16,6 +16,7 @@ export const LikeBtn = ({
   const queryClient = useQueryClient();
   const { getToken } = useAuth();
   const token = getToken();
+
   const toggleWishlistMutation = useMutation({
     mutationFn: () => toggleWishList(user, bookId, token),
     onSuccess: () => {
@@ -27,10 +28,21 @@ export const LikeBtn = ({
     event.stopPropagation();
     toggleWishlistMutation.mutate();
   };
+
+  const likedBooks = queryClient.getQueryData<{ bookId: string }[]>([
+    "likedBooks",
+    user.email,
+  ]);
+  const isLiked = likedBooks
+    ? likedBooks.some((book) => book.bookId === bookId)
+    : false;
+
   return (
     <button
       onClick={handleLike}
-      className="flex items-center text-gray-500 text-xs hover:text-red-500 hover:cursor-pointer"
+      className={`flex items-center text-xs hover:cursor-pointer hover:text-red-500 ${
+        isLiked ? "text-red-500" : "text-gray-500"
+      }`}
     >
       <FaHeart size={size} />
     </button>
