@@ -1,5 +1,6 @@
 import { fetchLikedBooks, getBookInfo } from "@/api";
 import { BookCard } from "@/components/book/BookCard";
+import { LoadingBubbles } from "@/components/loading/LoadingBubbles";
 import { useUser } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
@@ -42,7 +43,7 @@ function LikedBooks() {
   });
 
   if (isLoading || isBooksLoading) {
-    return <p>Loading...</p>;
+    return <LoadingBubbles />;
   }
 
   if (isError || isBooksError) {

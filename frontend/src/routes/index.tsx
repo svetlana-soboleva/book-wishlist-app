@@ -5,6 +5,8 @@ import { getBooks } from "@/api";
 import { useState } from "react";
 import { BookCard } from "@/components/book/BookCard";
 import { Book } from "@/api/types";
+import { LoadingBubbles } from "@/components/loading/LoadingBubbles";
+import Pagination from "@/components/pagination/Pagination";
 
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>) => {
@@ -26,8 +28,10 @@ function Index() {
     queryFn: () => getBooks(searchQuery, page),
     enabled: !!searchQuery,
   });
+
   const onSearchChange = (value: string) => {
     setSearchQuery(value);
+    setPage(0);
     navigate({
       to: "/",
       search: { query: value },
@@ -53,32 +57,8 @@ function Index() {
           </div>
         )}
       </div>
-      {data ? (
-        <div className="join grid grid-cols-3">
-          <button
-            onClick={() => setPage((old) => Math.max(old - 1, 0))}
-            disabled={page === 0}
-            className="join-item btn"
-          >
-            Previous page
-          </button>
-          <button className="join-item btn btn-disabled">{page + 1}</button>
-          <button
-            onClick={() => setPage((old) => old + 1)}
-            className="join-item btn"
-          >
-            Next
-          </button>
-        </div>
-      ) : null}
-      {isFetching ? (
-        <div>
-          <span className="loading loading-ring loading-xs"></span>
-          <span className="loading loading-ring loading-sm"></span>
-          <span className="loading loading-ring loading-md"></span>
-          <span className="loading loading-ring loading-lg"></span>
-        </div>
-      ) : null}
+      {data ? <Pagination page={page} setPage={setPage} /> : null}
+      {isFetching ? <LoadingBubbles /> : null}
     </div>
   );
 }

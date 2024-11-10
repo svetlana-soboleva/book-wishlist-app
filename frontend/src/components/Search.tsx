@@ -9,10 +9,17 @@ export const Search = ({ onSearchChange }: Props) => {
   const handleSearchValue = () => {
     onSearchChange(inputValue);
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearchValue();
+    }
+  };
   return (
     <label className="input input-bordered flex items-center gap-2">
       <input
         onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={handleKeyDown}
         type="text"
         className="grow"
         placeholder="Search"

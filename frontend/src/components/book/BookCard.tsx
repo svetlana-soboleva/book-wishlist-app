@@ -22,8 +22,8 @@ export const BookCard = ({
   const email = user?.emailAddresses?.[0]?.emailAddress;
 
   return (
-    <Link to={to} params={params}>
-      <div className="w-40 flex flex-col justify-between bg-white shadow-md rounded-md p-1 border border-gray-200 hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer">
+    <div className="w-40 flex flex-col justify-between bg-white shadow-md rounded-md p-1 border border-gray-200 hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer">
+      <Link to={to} params={params}>
         <img
           src={thumbnail}
           alt={`${title} cover`}
@@ -35,23 +35,22 @@ export const BookCard = ({
         <p className="text-xs text-gray-700 truncate">
           {authors?.join(", ") || "Unknown Author"}
         </p>
-
-        <div className="flex items-center justify-between mt-1">
-          <LikeBtn
-            size={10}
-            user={{
-              email: email as string,
-              username: username as string,
-            }}
-            bookId={book.id}
-          />
-          <div className="flex items-center space-x-1 text-gray-600">
-            {pageCount && (
-              <p className="text-xs text-gray-700">{pageCount} pages</p>
-            )}
-          </div>
+      </Link>
+      <div className="flex items-center justify-between mt-1">
+        <LikeBtn
+          size={10}
+          user={{
+            email: email as string,
+            username: username as string,
+          }}
+          bookId={book.id}
+        />
+        <div className="flex items-center space-x-1 text-gray-600">
+          {pageCount && (
+            <p className="text-xs text-gray-700">{pageCount} pages</p>
+          )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
