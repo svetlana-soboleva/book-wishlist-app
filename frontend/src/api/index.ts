@@ -52,17 +52,20 @@ export const getBookInfo = async (id: string) => {
   }
 };
 
-export const toggleWishList = async(user: User, bookId: string ) => {
-  const res = await fetch(
-    `${BASE_ADD_WISHLIST}${bookId}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user)
-    }
-  );
-  console.log(await res.json())
-  return res.json()
-}
+export const toggleWishList = async (
+  user: User,
+  bookId: string,
+  token: Promise<string | null>
+) => {
+  const res = await fetch(`${BASE_ADD_WISHLIST}/${bookId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${await token}`,
+    },
+    body: JSON.stringify(user),
+    // mode: "no-cors",
+  });
+  console.log(await res.json());
+  return res.json();
+};

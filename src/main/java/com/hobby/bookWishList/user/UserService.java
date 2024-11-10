@@ -2,7 +2,6 @@ package com.hobby.bookWishList.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -20,12 +19,12 @@ public class UserService {
         return userRepo.save(user);
     }
 
-    public User save(User user){
+    public User save(User user) {
         return userRepo.save(user);
     }
 
     public User findUserByEmail(String email) {
-        return userRepo.findByEmail(email).orElseThrow();
+        return userRepo.findByEmail(email).orElse(null);
     }
 
     public User getUserById(Long id) {

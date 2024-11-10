@@ -1,5 +1,10 @@
 debug: true
 spring:
+  security:
+    oauth2:
+      resource server:
+        jwt:
+          issuer-uri: https://engaged-insect-6.clerk.accounts.dev
   sql:
     init:
       platform: postgresql

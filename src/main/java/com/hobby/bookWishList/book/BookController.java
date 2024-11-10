@@ -1,4 +1,5 @@
 package com.hobby.bookWishList.book;
+
 import com.hobby.bookWishList.book.model.Book;
 import com.hobby.bookWishList.book.model.GoogleBookItem;
 import com.hobby.bookWishList.book.model.GoogleBooksResponse;
@@ -6,12 +7,12 @@ import com.hobby.bookWishList.user.User;
 import com.hobby.bookWishList.user.UserDTO;
 import com.hobby.bookWishList.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api")
@@ -24,32 +25,34 @@ public class BookController {
     private UserService userService;
 
     @GetMapping("/search-books")
-    public ResponseEntity<List<GoogleBookItem>> searchBooks( @RequestParam String q,
-                                                            @RequestParam(defaultValue = "0") int startIndex,
-                                                            @RequestParam(defaultValue = "10") int maxResults) {
+    public ResponseEntity<List<GoogleBookItem>> searchBooks(@RequestParam String q, @RequestParam(defaultValue = "0") int startIndex, @RequestParam(defaultValue = "10") int maxResults) {
         GoogleBooksResponse response = bookService.searchBooks(q, startIndex, maxResults);
         List<GoogleBookItem> books = response.getItems();
         return ResponseEntity.ok().body(books);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/secure/like-book/{bookId}")
-    public ResponseEntity<Book> likeBook(@RequestBody UserDTO userDTO, @PathVariable String bookId) {
-        User existingUser = userService.findUserByEmail(userDTO.email());
+    public ResponseEntity<?> likeBook(@RequestBody UserDTO userDTO, @PathVariable String bookId) {
+        try {
+            User existingUser = userService.findUserByEmail(userDTO.email());
+            if (existingUser == null) {
+                existingUser = userService.createUser(userDTO);
+            }
 
-        if(existingUser == null){
-            existingUser = userService.createUser(userDTO);
-        }
-        //if no user create new user by calling userService.createUser(userDTO)
+            Book book = bookService.findBookInBD(bookId);
+            if (book == null) {
+                book = new Book(bookId);
+                bookService.saveBook(book);
+            }
 
-        //otherwise
-        Book book = bookService.findBookInBD(bookId);
-        if(book ==null){
-            book = new Book(bookId);
-            bookService.saveBook(book);
+            existingUser.toggleWishList(book);
+            userService.save(existingUser);
+
+            return ResponseEntity.ok().body(book);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
         }
-        existingUser.toggleWishList(book);
-        userService.save(existingUser);
-        return ResponseEntity.ok(book);
     }
 
  /*   @GetMapping("/books/searchNewestBooks")

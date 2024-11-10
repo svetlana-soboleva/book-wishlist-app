@@ -2,6 +2,7 @@ import icon from "@/assets/onImgPlaceholder.png";
 import { Book } from "@/api/types";
 import { Link } from "@tanstack/react-router";
 import { LikeBtn } from "../buttons/LikeBtn";
+import { useUser } from "@clerk/clerk-react";
 
 export const BookCard = ({
   book,
@@ -14,8 +15,11 @@ export const BookCard = ({
 }) => {
   const { selfLink, volumeInfo } = book;
   const { title, authors, pageCount, imageLinks } = volumeInfo;
-
   const thumbnail = imageLinks?.smallThumbnail || icon;
+
+  const { user } = useUser();
+  const username = user?.firstName
+  const email = user?.emailAddresses?.[0]?.emailAddress;
 
   return (
     <Link to={to} params={params}>
@@ -33,7 +37,7 @@ export const BookCard = ({
         </p>
 
         <div className="flex items-center justify-between mt-1">
-          <LikeBtn  size={10}/>
+          <LikeBtn  size={10} user={{email, username}}  bookId={book.id}/>
           <div className="flex items-center space-x-1 text-gray-600">
             {pageCount && (
               <p className="text-xs text-gray-700">{pageCount} pages</p>

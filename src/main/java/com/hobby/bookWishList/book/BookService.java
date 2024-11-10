@@ -31,15 +31,14 @@ public class BookService {
 
     public GoogleBooksResponse searchBooks(String query, int startIndex, int maxResults) {
         String url = String.format("%s?q=%s&key=%s&startIndex=%d&maxResults=%d", BASE_URL, query, apiKey, startIndex, maxResults);
-//        RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, GoogleBooksResponse.class);
     }
 
-    public Book findBookInBD(String bookId){
+    public Book findBookInBD(String bookId) {
         return bookRepository.findByBookId(bookId);
     }
 
-    public Book saveBook(Book book){
+    public Book saveBook(Book book) {
         return bookRepository.save(book);
     }
 
@@ -67,11 +66,8 @@ public class BookService {
 //        return restTemplate.getForObject(url, GoogleBooksResponse.class);
 //    }
 
-    public GoogleBookItem searchBookInfo(String id){
-        String url = String.format(
-                "%s/%s",
-                BASE_URL, id
-        );
+    public GoogleBookItem searchBookInfo(String id) {
+        String url = String.format("%s/%s", BASE_URL, id);
 
         return restTemplate.getForObject(url, GoogleBookItem.class);
     }

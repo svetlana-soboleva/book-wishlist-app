@@ -26,7 +26,7 @@ export const BookPage = ({ bookData }: { bookData: Book }) => {
           </button>
 
           <h1>Book details</h1>
-          <LikeBtn size={30} user={{username, email}}  bookId={bookData.id} />
+          <LikeBtn size={30} user={{email, username}}  bookId={bookData.id} />
         </div>
 
         <div className="flex justify-center items-center p-8">

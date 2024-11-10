@@ -1,5 +1,6 @@
 import { toggleWishList } from "@/api";
 import { User } from "@/api/types";
+import { useAuth } from "@clerk/clerk-react";
 import { useMutation } from "@tanstack/react-query";
 import { FaHeart } from "react-icons/fa";
 
@@ -12,8 +13,10 @@ export const LikeBtn = ({
   user: User;
   bookId: string;
 }) => {
+  const { getToken } = useAuth();
+  const token = getToken();
   const toggleWishlistMutation = useMutation({
-    mutationFn: () => toggleWishList(user, bookId),
+    mutationFn: () => toggleWishList(user, bookId, token),
   });
 
   const handleLike = () => {

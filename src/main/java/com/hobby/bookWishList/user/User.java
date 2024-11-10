@@ -1,4 +1,5 @@
 package com.hobby.bookWishList.user;
+
 import com.hobby.bookWishList.book.model.Book;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,11 +24,7 @@ public class User {
     private String email;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_books",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
-    )
+    @JoinTable(name = "user_books", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> likedBooks = new ArrayList<>();
 
     public User() {
