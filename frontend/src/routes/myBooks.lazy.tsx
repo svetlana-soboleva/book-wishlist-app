@@ -1,4 +1,5 @@
-import { fetchLikedBooks } from "@/api";
+import { fetchLikedBooks, getBookInfo } from "@/api";
+import { BookCard } from "@/components/book/BookCard";
 import { useUser } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
@@ -11,31 +12,60 @@ function LikedBooks() {
   const { user } = useUser();
   const email = user?.emailAddresses?.[0]?.emailAddress;
 
-  const { data, error, isLoading, isError } = useQuery({
+  const {
+    data: likedBooksIds,
+    error,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["likedBooks", email],
     queryFn: () => fetchLikedBooks(email),
     enabled: !!email,
   });
-  console.log(data);
 
-  if (isLoading) {
+  const {
+    data: booksInfo,
+    isLoading: isBooksLoading,
+    isError: isBooksError,
+  } = useQuery({
+    queryKey: ["booksInfo", likedBooksIds],
+    queryFn: async () => {
+      if (!likedBooksIds || likedBooksIds.length === 0) return [];
+      const booksDetails = await Promise.all(
+        likedBooksIds.map((book: { bookId: string }) =>
+          getBookInfo(book.bookId)
+        )
+      );
+      return booksDetails;
+    },
+    enabled: !!likedBooksIds,
+  });
+
+  if (isLoading || isBooksLoading) {
     return <p>Loading...</p>;
   }
 
-  if (isError) {
-    return <p>Error: {error.message}</p>;
+  if (isError || isBooksError) {
+    return <p>Error: {error?.message || "Failed to fetch book details."}</p>;
   }
 
   return (
     <div>
-      <h1>Liked Books</h1>
-      <ul>
-        {data.map((book) => (
-          <li key={book.bookId}>
-            <p>{}</p>
-          </li>
-        ))}
-      </ul>
+      <h1 className="text-lg my-4">To Read:</h1>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+        {booksInfo && booksInfo.length > 0 ? (
+          booksInfo.map((book) => (
+            <BookCard
+              key={book.id}
+              book={book}
+              to={`/book/${book.id}`}
+              params={{ bookId: book.id }}
+            />
+          ))
+        ) : (
+          <p>No liked books found.</p>
+        )}
+      </div>
     </div>
   );
 }

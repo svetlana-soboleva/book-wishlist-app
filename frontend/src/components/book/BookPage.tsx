@@ -13,14 +13,7 @@ export const BookPage = ({ bookData }: { bookData: Book }) => {
     <div className="grid grid-cols-1 pt-4 sm:grid-cols-2 sm:w-full bg-gradient-to-b from-white via-stone-50 to-stone-100 text-white rounded-lg mx-auto shadow-lg">
       <div className="flex flex-col  w-full">
         <div className="flex flex-row justify-between p-4 text-gray-800">
-          <button
-            // onClick={() => {
-            //   navigate({
-            //     to: "/",
-            //   });
-            // }}
-            className="flex items-center hover:text-gray-200 hover:cursor-pointer hidden"
-          >
+          <button className="flex items-center hover:text-gray-200 hover:cursor-pointer hidden">
             <FaChevronLeft size={30} />
           </button>
 
@@ -50,8 +43,6 @@ export const BookPage = ({ bookData }: { bookData: Book }) => {
         </h1>
         <p className="text-sm text-gray-600">
           {bookData.volumeInfo.authors?.join(", ")}
-          {/* | Publish{" "}
-          {bookData.volumeInfo.publishedDate}{" "} */}
         </p>
 
         <div className="flex justify-around text-gray-300 text-sm mt-4">

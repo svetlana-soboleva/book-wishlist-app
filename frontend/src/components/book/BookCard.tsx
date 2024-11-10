@@ -13,7 +13,7 @@ export const BookCard = ({
   to: string;
   params: { bookId: string };
 }) => {
-  const { selfLink, volumeInfo } = book;
+  const { volumeInfo } = book;
   const { title, authors, pageCount, imageLinks } = volumeInfo;
   const thumbnail = imageLinks?.smallThumbnail || icon;
 
@@ -49,9 +49,6 @@ export const BookCard = ({
             {pageCount && (
               <p className="text-xs text-gray-700">{pageCount} pages</p>
             )}
-            <a href={selfLink} target="_blank" rel="noopener noreferrer">
-              {/* <FaBookOpen className="w-4 h-4" /> */}
-            </a>
           </div>
         </div>
       </div>
