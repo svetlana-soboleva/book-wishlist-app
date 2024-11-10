@@ -1,7 +1,7 @@
 import { fetchLikedBooks, getBookInfo } from "@/api";
 import { BookCard } from "@/components/book/BookCard";
 import { LoadingBubbles } from "@/components/loading/LoadingBubbles";
-import { useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
@@ -10,6 +10,8 @@ export const Route = createLazyFileRoute("/myBooks")({
 });
 
 function LikedBooks() {
+  const { getToken } = useAuth();
+  const token = getToken();
   const { user } = useUser();
   const email = user?.emailAddresses?.[0]?.emailAddress;
 
@@ -20,7 +22,7 @@ function LikedBooks() {
     isError,
   } = useQuery({
     queryKey: ["likedBooks", email],
-    queryFn: () => fetchLikedBooks(email),
+    queryFn: () => fetchLikedBooks(email, token),
     enabled: !!email,
   });
 

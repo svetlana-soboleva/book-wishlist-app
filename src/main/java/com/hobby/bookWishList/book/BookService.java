@@ -7,6 +7,7 @@ import com.hobby.bookWishList.user.User;
 import com.hobby.bookWishList.user.UserRepository;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -50,9 +51,8 @@ public class BookService {
         return restTemplate.getForObject(url, GoogleBookItem.class);
     }
 
-    public List<Book> getLikedBooksByUserEmail(String email) {
-        User user = userRepo.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with email: " + email));
-
+    public List<Book> getLikedBooksByUserEmail(String email) throws ChangeSetPersister.NotFoundException {
+        User user = userRepo.findByEmail(email).orElseThrow(ChangeSetPersister.NotFoundException::new);
         return user.getLikedBooks();
     }
 }

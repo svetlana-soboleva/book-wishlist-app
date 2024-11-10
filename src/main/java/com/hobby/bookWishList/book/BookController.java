@@ -8,6 +8,7 @@ import com.hobby.bookWishList.user.User;
 import com.hobby.bookWishList.user.UserDTO;
 import com.hobby.bookWishList.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,8 +64,8 @@ public class BookController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/liked")
-    public List<BookDTO> getLikedBooksByUserEmail(@RequestParam String email) {
+    @GetMapping("/secure/liked")
+    public List<BookDTO> getLikedBooksByUserEmail(@RequestParam String email) throws ChangeSetPersister.NotFoundException {
         List<Book> books = bookService.getLikedBooksByUserEmail(email);
         return books.stream()
                 .map(book -> new BookDTO(book.getBookId()))

@@ -70,9 +70,18 @@ export const toggleWishList = async (
   return res.json();
 };
 
-export const fetchLikedBooks = async (email: string | undefined) => {
+export const fetchLikedBooks = async (
+  email: string | undefined,
+  token: Promise<string | null>
+) => {
   try {
-    const response = await fetch(`${BASE_GET_LIKED_BOOKS}${email}`);
+    const response = await fetch(`${BASE_GET_LIKED_BOOKS}${email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${await token}`,
+      },
+    });
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || `Error: ${response.statusText}`);
