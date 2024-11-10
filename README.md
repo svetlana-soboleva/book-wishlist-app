@@ -37,3 +37,7 @@ npm run server
  ```bash
 npm run frontend
 ``` 
+
+![Screenshot](Screenshot_2.png) 
+![Screenshot](Screenshot_3.png) 
+![Screenshot](Screenshot_1.png) 
