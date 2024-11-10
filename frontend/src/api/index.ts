@@ -58,7 +58,6 @@ export const toggleWishList = async (
   bookId: string,
   token: Promise<string | null>
 ) => {
-  console.log(await token);
   const res = await fetch(`${BASE_ADD_WISHLIST}/${bookId}`, {
     method: "POST",
     headers: {
@@ -68,7 +67,6 @@ export const toggleWishList = async (
     body: JSON.stringify(user),
     // mode: "no-cors",
   });
-  console.log(await res.json());
   return res.json();
 };
 
@@ -76,11 +74,13 @@ export const fetchLikedBooks = async (email: string | undefined) => {
   try {
     const response = await fetch(`${BASE_GET_LIKED_BOOKS}${email}`);
     if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
+      const errorData = await response.json();
+      throw new Error(errorData.message || `Error: ${response.statusText}`);
     }
     const data = await response.json();
     return data;
   } catch (err) {
     console.log(err);
+    return [];
   }
 };

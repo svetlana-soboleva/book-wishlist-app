@@ -64,7 +64,7 @@ function LikedBooks() {
             />
           ))
         ) : (
-          <p>No liked books found.</p>
+          <p>No books found.</p>
         )}
       </div>
     </div>
