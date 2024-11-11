@@ -5,6 +5,7 @@ import { BookCard } from "@/components/book/BookCard";
 import { LoadingBubbles } from "@/components/loadings/LoadingBubbles";
 import Pagination from "@/components/pagination/Pagination";
 import { useBooks } from "@/hooks/useBooks";
+import { Badge } from "@/components/badge/Badge";
 
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>) => {
@@ -37,7 +38,7 @@ function Index() {
       <Search onSearchChange={onSearchChange} />
       <div>
         {isError ? (
-          <div>Error: {error?.message}</div>
+          <Badge error={error!} />
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
             {data?.map((book) => (

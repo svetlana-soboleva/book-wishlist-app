@@ -10,6 +10,7 @@ export const getBooks = async (
   page: number,
   maxResults = 12
 ) => {
+  throw Error("boo")
   const queries = query.split(" ").join("+");
   const res = await fetch(
     `${BASE_SEARCH_URL}${queries}&startIndex=${page}&maxResults=${maxResults}`,
@@ -51,7 +52,6 @@ export const toggleWishList = async (
   if (!user || !user.email) {
     throw new Error("User is not signed in. Please log in to continue.");
   }
-
   const resolvedToken = await token;
   if (!resolvedToken) {
     throw new Error(
