@@ -11,4 +11,7 @@ public class BookWishListApplication {
         SpringApplication.run(BookWishListApplication.class, args);
     }
 
+    private void bla() {
+        String sfg;
+    }
 }

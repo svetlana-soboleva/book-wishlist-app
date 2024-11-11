@@ -25,6 +25,7 @@ export const Search = ({ onSearchChange }: Props) => {
         placeholder="Search"
       />
       <svg
+        data-testid="search-icon"
         onClick={handleSearchValue}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"

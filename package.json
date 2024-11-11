@@ -4,11 +4,12 @@
   "description": "React - Book Wish List",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
-    "server": "mvn spring-boot:run",
+    "server": "cd backend && mvn spring-boot:run",
     "frontend": "npm run dev --workspace frontend",
     "lint": "npm run lint --workspace frontend"
   },
   "workspaces": [
-    "./frontend"
+    "./frontend",
+    "./backend"
   ]
 }

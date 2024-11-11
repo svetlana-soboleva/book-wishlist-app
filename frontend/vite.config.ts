@@ -9,6 +9,7 @@ export default defineConfig({
     viteReact(),
     // ...,
   ],
+  
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
