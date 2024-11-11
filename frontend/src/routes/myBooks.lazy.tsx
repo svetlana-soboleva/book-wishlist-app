@@ -23,7 +23,7 @@ function LikedBooks() {
   }
 
   if (isError || isBooksError) {
-    return <Badge error = {error!}/>
+    return <Badge error={error!} />;
   }
 
   return (

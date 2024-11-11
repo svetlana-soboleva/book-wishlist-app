@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SignIn } from "@clerk/clerk-react";
 
 import { Suspense } from "react";
+import { Loading } from "@/components/loadings/LoadingCard";
 
 export const Route = createFileRoute("/signIn/")({
   component: SignInPage,
@@ -9,7 +10,7 @@ export const Route = createFileRoute("/signIn/")({
 
 function SignInPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <SignIn />
     </Suspense>
   );
