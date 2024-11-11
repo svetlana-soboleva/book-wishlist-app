@@ -11,46 +11,36 @@ export const getBooks = async (
   maxResults = 12
 ) => {
   const queries = query.split(" ").join("+");
-  try {
-    const res = await fetch(
-      `${BASE_SEARCH_URL}${queries}&startIndex=${page}&maxResults=${maxResults}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(`Error: ${res.status} ${res.statusText}`);
-    }
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching books:", error);
-    return null;
-  }
-};
-
-export const getBookInfo = async (id: string) => {
-  try {
-    const res = await fetch(`${BASE_SEARCH_INFO}${id}`, {
+  const res = await fetch(
+    `${BASE_SEARCH_URL}${queries}&startIndex=${page}&maxResults=${maxResults}`,
+    {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-    });
-
-    if (!res.ok) {
-      throw new Error(`Error: ${res.status} ${res.statusText}`);
     }
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching books:", error);
-    return null;
+  );
+
+  if (!res.ok) {
+    throw new Error(`Error: ${res.status} ${res.statusText}`);
   }
+  const data = await res.json();
+  return data;
+};
+
+export const getBookInfo = async (id: string) => {
+  const res = await fetch(`${BASE_SEARCH_INFO}${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Error: ${res.status} ${res.statusText}`);
+  }
+  const data = await res.json();
+  return data;
 };
 
 export const toggleWishList = async (
@@ -65,7 +55,6 @@ export const toggleWishList = async (
       Authorization: `Bearer ${await token}`,
     },
     body: JSON.stringify(user),
-    // mode: "no-cors",
   });
   return res.json();
 };
