@@ -1,7 +1,7 @@
 import type { Book } from "../api/types";
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { getBookInfo } from "@/api";
-import { Loading } from "@/components/loading/LoadingCard";
+import { Loading } from "@/components/loadings/LoadingCard";
 import { BookPage } from "@/components/book/BookPage";
 
 export const Route = createFileRoute("/$bookId")({

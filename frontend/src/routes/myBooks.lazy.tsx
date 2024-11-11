@@ -1,6 +1,6 @@
 import { fetchLikedBooks, getBookInfo } from "@/api";
 import { BookCard } from "@/components/book/BookCard";
-import { LoadingBubbles } from "@/components/loading/LoadingBubbles";
+import { LoadingBubbles } from "@/components/loadings/LoadingBubbles";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";

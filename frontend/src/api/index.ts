@@ -44,10 +44,21 @@ export const getBookInfo = async (id: string) => {
 };
 
 export const toggleWishList = async (
-  user: User,
+  user: User | null,
   bookId: string,
   token: Promise<string | null>
 ) => {
+  if (!user || !user.email) {
+    throw new Error("User is not signed in. Please log in to continue.");
+  }
+
+  const resolvedToken = await token;
+  if (!resolvedToken) {
+    throw new Error(
+      "Authorization token is missing. Please log in to continue."
+    );
+  }
+
   const res = await fetch(`${BASE_ADD_WISHLIST}/${bookId}`, {
     method: "POST",
     headers: {

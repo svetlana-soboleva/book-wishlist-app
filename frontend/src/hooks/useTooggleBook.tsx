@@ -4,7 +4,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { User } from "@/api/types";
 import { useState } from "react";
 
-
 export const useTooggleBook = ({
   user,
   bookId,
@@ -43,11 +42,11 @@ export const useTooggleBook = ({
           context.previousLikedBooks
         );
       }
-      setError( "Please sighn in!" + err.message)
+      setError(err.message);
     },
     onSuccess: () => {
-        setSuccess("Successfully updated liked books!");
-      },
+      setSuccess("Successfully updated liked books!");
+    },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["likedBooks", user.email] });
     },
@@ -62,5 +61,12 @@ export const useTooggleBook = ({
     ? likedBooks.some((book) => book.bookId === bookId)
     : false;
 
-  return { toggleWishlistMutation, isLiked, error, success, setError, setSuccess };
+  return {
+    toggleWishlistMutation,
+    isLiked,
+    error,
+    success,
+    setError,
+    setSuccess,
+  };
 };
