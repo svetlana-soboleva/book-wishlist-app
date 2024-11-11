@@ -1,3 +1,4 @@
+import { Badge } from "@/components/badge/Badge";
 import { BookCard } from "@/components/book/BookCard";
 import { LoadingBubbles } from "@/components/loadings/LoadingBubbles";
 import { useLikedBooks } from "@/hooks/useLikedBooks";
@@ -22,7 +23,7 @@ function LikedBooks() {
   }
 
   if (isError || isBooksError) {
-    return <p>Error: {error?.message || "Failed to fetch book details."}</p>;
+    return <Badge error = {error!}/>
   }
 
   return (

@@ -1,4 +1,5 @@
 import { fetchLikedBooks, getBookInfo } from "@/api";
+import { LikedBook } from "@/api/types";
 import { useQuery } from "@tanstack/react-query";
 
 
@@ -10,7 +11,7 @@ export const useLikedBooks = ({email, token}  : {email: string | undefined, toke
     error,
     isLoading,
     isError,
-  } = useQuery({
+  } = useQuery<LikedBook[]>({
     queryKey: ["likedBooks", email],
     queryFn: () => fetchLikedBooks(email, token),
     enabled: !!email,

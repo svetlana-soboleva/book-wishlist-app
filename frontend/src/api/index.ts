@@ -1,4 +1,4 @@
-import { User } from "./types";
+import { LikedBook, User } from "./types";
 
 const BASE_SEARCH_URL = import.meta.env.VITE_BASE_SEARCH_URL;
 const BASE_SEARCH_INFO = import.meta.env.VITE_BASE_SEARCH_INFO;
@@ -72,8 +72,17 @@ export const toggleWishList = async (
 export const fetchLikedBooks = async (
   email: string | undefined,
   token: Promise<string | null>
-) => {
-  try {
+): Promise<LikedBook[]> => {
+  if (!email) {
+    throw new Error("User is not signed in. Please log in to continue.");
+  }
+  const resolvedToken = await token;
+  if (!resolvedToken) {
+    throw new Error(
+      "Authorization token is missing. Please log in to continue."
+    );
+  }
+
     const response = await fetch(`${BASE_GET_LIKED_BOOKS}${email}`, {
       method: "GET",
       headers: {
@@ -85,10 +94,6 @@ export const fetchLikedBooks = async (
       const errorData = await response.json();
       throw new Error(errorData.message || `Error: ${response.statusText}`);
     }
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    console.log(err);
-    return [];
-  }
+
+    return response.json();
 };

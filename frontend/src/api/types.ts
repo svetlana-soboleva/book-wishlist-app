@@ -27,3 +27,7 @@ export interface User {
   username: string;
   email: string;
 }
+
+export interface LikedBook {
+  bookId: string;
+}
