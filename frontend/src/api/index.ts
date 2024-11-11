@@ -10,7 +10,6 @@ export const getBooks = async (
   page: number,
   maxResults = 12
 ) => {
-  throw Error("boo")
   const queries = query.split(" ").join("+");
   const res = await fetch(
     `${BASE_SEARCH_URL}${queries}&startIndex=${page}&maxResults=${maxResults}`,
