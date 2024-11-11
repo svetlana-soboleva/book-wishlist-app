@@ -34,7 +34,7 @@ public class BookController {
         return ResponseEntity.ok().body(books);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+
     @PostMapping("/secure/like-book/{bookId}")
     public ResponseEntity<?> likeBook(@RequestBody UserDTO userDTO, @PathVariable String bookId) {
         try {
