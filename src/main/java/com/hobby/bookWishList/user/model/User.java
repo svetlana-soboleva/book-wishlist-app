@@ -1,4 +1,4 @@
-package com.hobby.bookWishList.user;
+package com.hobby.bookWishList.user.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hobby.bookWishList.book.model.Book;
 import jakarta.persistence.*;

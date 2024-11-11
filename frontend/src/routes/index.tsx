@@ -38,6 +38,7 @@ function Index() {
     });
   };
 
+ 
   return (
     <div className="p-2 flex flex-col gap-16 justify-center items-center">
       <Search onSearchChange={onSearchChange} />

@@ -1,5 +1,7 @@
 package com.hobby.bookWishList.user;
 
+import com.hobby.bookWishList.user.model.User;
+import com.hobby.bookWishList.user.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

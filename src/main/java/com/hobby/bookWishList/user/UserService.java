@@ -1,7 +1,8 @@
 package com.hobby.bookWishList.user;
 
 import com.hobby.bookWishList.book.BookRepository;
-import com.hobby.bookWishList.book.model.Book;
+import com.hobby.bookWishList.user.model.User;
+import com.hobby.bookWishList.user.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

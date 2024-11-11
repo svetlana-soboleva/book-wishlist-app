@@ -3,7 +3,7 @@ package com.hobby.bookWishList.book;
 import com.hobby.bookWishList.book.model.Book;
 import com.hobby.bookWishList.book.model.GoogleBookItem;
 import com.hobby.bookWishList.book.model.GoogleBooksResponse;
-import com.hobby.bookWishList.user.User;
+import com.hobby.bookWishList.user.model.User;
 import com.hobby.bookWishList.user.UserRepository;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;

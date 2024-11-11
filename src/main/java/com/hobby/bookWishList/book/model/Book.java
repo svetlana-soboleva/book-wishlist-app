@@ -1,8 +1,7 @@
 package com.hobby.bookWishList.book.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hobby.bookWishList.user.User;
+import com.hobby.bookWishList.user.model.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
