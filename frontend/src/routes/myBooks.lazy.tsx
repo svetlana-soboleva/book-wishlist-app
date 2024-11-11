@@ -35,7 +35,7 @@ function LikedBooks() {
             <BookCard
               key={book.id}
               book={book}
-              to={`/book/${book.id}`}
+              to={`/${book.id}`}
               params={{ bookId: book.id }}
             />
           ))
