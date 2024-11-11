@@ -1,8 +1,7 @@
-import { fetchLikedBooks, getBookInfo } from "@/api";
 import { BookCard } from "@/components/book/BookCard";
 import { LoadingBubbles } from "@/components/loadings/LoadingBubbles";
+import { useLikedBooks } from "@/hooks/useLikedBooks";
 import { useAuth, useUser } from "@clerk/clerk-react";
-import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/myBooks")({
@@ -15,34 +14,8 @@ function LikedBooks() {
   const { user } = useUser();
   const email = user?.emailAddresses?.[0]?.emailAddress;
 
-  const {
-    data: likedBooksIds,
-    error,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["likedBooks", email],
-    queryFn: () => fetchLikedBooks(email, token),
-    enabled: !!email,
-  });
-
-  const {
-    data: booksInfo,
-    isLoading: isBooksLoading,
-    isError: isBooksError,
-  } = useQuery({
-    queryKey: ["booksInfo", likedBooksIds],
-    queryFn: async () => {
-      if (!likedBooksIds || likedBooksIds.length === 0) return [];
-      const booksDetails = await Promise.all(
-        likedBooksIds.map((book: { bookId: string }) =>
-          getBookInfo(book.bookId)
-        )
-      );
-      return booksDetails;
-    },
-    enabled: !!likedBooksIds,
-  });
+  const { error, isLoading, isError, booksInfo, isBooksLoading, isBooksError } =
+    useLikedBooks({ email, token });
 
   if (isLoading || isBooksLoading) {
     return <LoadingBubbles />;
