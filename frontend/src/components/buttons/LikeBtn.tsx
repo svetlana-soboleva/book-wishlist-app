@@ -19,8 +19,30 @@ export const LikeBtn = ({
 
   const toggleWishlistMutation = useMutation({
     mutationFn: () => toggleWishList(user, bookId, token),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["likedBooks"] });
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["likedBooks", user.email] });
+      const previousLikedBooks = queryClient.getQueryData<{ bookId: string }[]>(
+        ["likedBooks", user.email]
+      );
+      queryClient.setQueryData<{ bookId: string }[]>(
+        ["likedBooks", user.email],
+        (old) =>
+          isLiked
+            ? old?.filter((book) => book.bookId !== bookId) || []
+            : [...(old || []), { bookId }]
+      );
+      return { previousLikedBooks };
+    },
+    onError: (err, variables, context) => {
+      if (context?.previousLikedBooks) {
+        queryClient.setQueryData(
+          ["likedBooks", user.email],
+          context.previousLikedBooks
+        );
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["likedBooks", user.email] });
     },
   });
 
@@ -33,6 +55,7 @@ export const LikeBtn = ({
     "likedBooks",
     user.email,
   ]);
+
   const isLiked = likedBooks
     ? likedBooks.some((book) => book.bookId === bookId)
     : false;
